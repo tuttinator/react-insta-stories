@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import "./App.css";
 const StoriesLazy = React.lazy(() => import("react-insta-stories"));
 const WithSeeMore = React.lazy(() =>
@@ -8,6 +8,8 @@ const WithSeeMore = React.lazy(() =>
 );
 
 function App() {
+  const [pause, setPause] = useState(false)
+
   return (
     <div className="App">
       <div className="left">
@@ -200,6 +202,7 @@ function App() {
           <StoriesLazy
             preloadCount={3}
             loop
+            isPaused={pause}
             keyboardNavigation
             defaultInterval={8000}
             stories={stories2}
@@ -211,6 +214,9 @@ function App() {
             storyContainerStyles={{ borderRadius: 8, overflow: "hidden" }}
           />
         </Suspense>
+        <div>
+          <button onClick={() => setPause(prev => !prev)}>{pause ? 'Resume' : 'Pause'} Story</button>
+        </div>
       </div>
     </div>
   );

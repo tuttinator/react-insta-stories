@@ -14,11 +14,17 @@ export const renderer: Renderer = ({ story, action, isPaused, config }) => {
 
   const imageLoaded = () => {
     setLoaded(true);
-    action("play");
   };
+
+  React.useEffect(() => {
+    if (loaded && !isPaused) {
+      action("play");
+    }
+  }, [loaded, isPaused]);
+
   return (
-    <WithHeader {...{ story, globalHeader: config.header }}>
-      <WithSeeMore {...{ story, action }}>
+    <WithHeader story={story} globalHeader={config.header}>
+      <WithSeeMore story={story} action={action}>
         <div>
           <img style={computedStyles} src={story.url} onLoad={imageLoaded} />
           {!loaded && (
