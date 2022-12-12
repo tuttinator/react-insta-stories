@@ -16,12 +16,8 @@ export default () => {
 
   const { currentId, next, videoDuration, pause, bufferAction } =
     useContext<ProgressContext>(ProgressCtx);
-  const {
-    defaultInterval,
-    onStoryEnd,
-    onStoryStart,
-    progressContainerStyles,
-  } = useContext<GlobalCtx>(GlobalContext);
+  const { defaultInterval, onStoryEnd, onStoryStart, progressContainerStyles } =
+    useContext<GlobalCtx>(GlobalContext);
   const { stories } = useContext<StoriesContextInterface>(StoriesContext);
 
   useEffect(() => {
@@ -81,11 +77,13 @@ export default () => {
   };
 
   return (
-    <div style={{
-      ...styles.progressArr,
-      ...progressContainerStyles,
-      ...opacityStyles
-    }}>
+    <div
+      style={{
+        ...styles.progressArr,
+        ...progressContainerStyles,
+        ...opacityStyles,
+      }}
+    >
       {stories.map((_, i) => (
         <Progress
           key={i}
