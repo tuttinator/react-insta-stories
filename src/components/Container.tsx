@@ -18,7 +18,12 @@ export default function () {
   const [videoDuration, setVideoDuration] = useState<number>(0);
   const isMounted = useIsMounted();
 
+<<<<<<< HEAD
   let mousedownId = useRef<any>();
+=======
+    let mousedownId = useRef<any>();
+    let isMounted = useRef<boolean>(true);
+>>>>>>> 13f7d65 (fix: unuse)
 
   const {
     width,
@@ -38,6 +43,7 @@ export default function () {
 
   usePreLoader(stories, currentId, preloadCount);
 
+<<<<<<< HEAD
   useEffect(() => {
     if (typeof currentIndex === "number") {
       if (currentIndex >= 0 && currentIndex < stories.length) {
@@ -48,6 +54,34 @@ export default function () {
           currentIndex
         );
       }
+=======
+    useEffect(() => {
+        if (typeof isPaused === 'boolean') {
+            setPause(isPaused)
+        }
+    }, [isPaused])
+
+    useEffect(() => {
+        const isClient = (typeof window !== 'undefined' && window.document);
+        if (isClient && (typeof keyboardNavigation === 'boolean' && keyboardNavigation)) {
+            document.addEventListener("keydown", handleKeyDown);
+            return () => {
+                document.removeEventListener("keydown", handleKeyDown);
+            }
+        }
+    }, [keyboardNavigation]);
+
+    // Cleanup mounted state - for issue #130 (https://github.com/mohitk05/react-insta-stories/issues/130)
+    useEffect(() => {
+        return () => {
+            isMounted.current = false;
+        }
+    }, []);
+
+    function isTouchDevice() {
+        return 'ontouchstart' in window        // works on most browsers
+            || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+>>>>>>> 13f7d65 (fix: unuse)
     }
   }, [currentIndex]);
 
